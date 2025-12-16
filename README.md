@@ -1,4 +1,3 @@
 # Plinko
-
-##Inizio progettazione
+## Inizio progettazione
 Fase di Idee
