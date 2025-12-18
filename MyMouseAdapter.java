@@ -1,7 +1,4 @@
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
-
-import org.w3c.dom.events.MouseEvent;
 
 public class MyMouseAdapter implements MouseListener{
 
@@ -12,7 +9,7 @@ public class MyMouseAdapter implements MouseListener{
 
     @Override
     public void mousePressed(java.awt.event.MouseEvent e) {
-        pannelloSuCuiLavorare.moveSquare(e.getX(),e.getY());
+         
     }
 
 

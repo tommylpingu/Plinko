@@ -17,7 +17,7 @@ public class SwingPaintDemo1 {
     
     private static void createAndShowGUI() {
         
-        JFrame f = new JFrame("Plinko");
+        JFrame f = new JFrame("Pinklo");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setSize(250,500);
         MyPanel p = new MyPanel();
