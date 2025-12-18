@@ -19,7 +19,7 @@ public class SwingPaintDemo1 {
         
         JFrame f = new JFrame("Pinklo");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setSize(250,500);
+        f.setSize(1000,800);
         MyPanel p = new MyPanel();
         f.add(p);
         f.pack();
