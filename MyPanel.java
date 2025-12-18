@@ -30,7 +30,7 @@ class MyPanel extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(250,200);
+        return new Dimension(1920,1080);
     }
 
     @Override
@@ -38,7 +38,7 @@ class MyPanel extends JPanel {
         super.paintComponent(g);       
 
         // Draw Text
-        g.drawString("This is my custom Panel!",10,20);
+        //g.drawString("This is my custom Panel!",10,20);
 
         g.setColor(Color.RED);
         g.fillRect(squareX,squareY,squareW,squareH);
