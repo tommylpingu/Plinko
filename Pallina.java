@@ -40,11 +40,7 @@ public class Pallina extends Thread {
     }
     public int getDiametro() {
         return diametro;
-    }
-
-    
-     
-    
+    }    
 
     @Override
     public void run() {
