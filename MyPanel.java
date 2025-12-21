@@ -13,6 +13,8 @@ class MyPanel extends JPanel {
     
     static Ostacolo[] ostacoli = new Ostacolo[150];
 
+    Pallina p = new Pallina(300, 100, 1.0, this);
+
 
     public MyPanel() {
         setBorder(BorderFactory.createLineBorder(Color.black));
@@ -23,6 +25,7 @@ class MyPanel extends JPanel {
         for (int i = 0; i < ostacoli.length; i++) {                               
             ostacoli[i] = new Ostacolo(i, DIM_BASE, getWidth(), 150);
         }
+        p.start();
     }
 
     @Override
@@ -43,8 +46,11 @@ class MyPanel extends JPanel {
             g.fillOval(OstX,OstY,DIM_BASE,DIM_BASE);
             g.setColor(Color.BLACK);
             g.drawOval(OstX,OstY,DIM_BASE,DIM_BASE);
-        }
 
+            
+        }
+        g.setColor(Color.BLUE);
+        g.fillOval((int)p.getX(),(int)p.getY(),p.getDiametro(),p.getDiametro());
     }  
 
     @Override
