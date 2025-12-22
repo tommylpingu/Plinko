@@ -33,7 +33,7 @@ public class SwingPaintDemo1 {
         f.add(p, BorderLayout.CENTER);
 
         button = creaButton(p);         //Crea il bottone a sinistra 
-        f.add(button, BorderLayout.WEST);
+        //f.add(button, BorderLayout.WEST);
 
         JPanel westPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));   //lo mette in un èanel a sinistra dove metteremo tutte le interazioni dell'utente
         westPanel.add(button);
