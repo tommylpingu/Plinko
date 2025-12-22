@@ -2,7 +2,7 @@ public class Pallina extends Thread {
     
     private double x;
     private double y;
-    private int diametro=10;
+    private int diametro;
     private double puntataAffiliata;
     private double angoloAttuale=90; //verso il basso 270 gradi a destra 0 gradi verso l'alto 90 gradi e a sinistra 180 
     private int velocita=5; 
@@ -11,11 +11,12 @@ public class Pallina extends Thread {
     
     
 
-    public Pallina(int x, int y,double puntataAffiliata, MyPanel f) {
+    public Pallina(int x, int y,double puntataAffiliata, MyPanel f, int diametro) { //Passo anche il diametro così se dobbbiamo cambiarlo lo facciamo solo nel JPanel (DIM_BASE è il valore)
         this.x = x;
         this.y = y;
         this.puntataAffiliata = puntataAffiliata;
         this.f = f;
+        this.diametro = diametro;
     }
 
     public double getAngoloAttuale() {

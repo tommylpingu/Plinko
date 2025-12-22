@@ -13,8 +13,7 @@ class MyPanel extends JPanel {
     
     static Ostacolo[] ostacoli = new Ostacolo[150];
 
-    Pallina p = new Pallina(300, 100, 1.0, this);
-
+    Pallina palla;
 
     public MyPanel() {
         setBorder(BorderFactory.createLineBorder(Color.black));
@@ -25,37 +24,50 @@ class MyPanel extends JPanel {
         for (int i = 0; i < ostacoli.length; i++) {                               
             ostacoli[i] = new Ostacolo(i, DIM_BASE, getWidth(), 150);
         }
-        p.start();
     }
+
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);   
         //PER ORA E' COMMENTATO PERCHE' HO COMMENTATO LA RESIZABLE, COSI'
         //CAMBIA LA POSIZIONE DEI PUNTI SE CAMBI LA DIMENSIONE DELLA FINESTRA
-        //if (!inizializzati) {       //Inizializza gli oggetti tanto restano uguali basta crearli una volta, 
+        if (!inizializzati) {       //Inizializza gli oggetti tanto restano uguali basta crearli una volta, 
             for (int i = 0; i < ostacoli.length; i++) {
                 ostacoli[i] = new Ostacolo(i, DIM_BASE, getWidth(), ostacoli.length); 
             } 
             inizializzati = true; 
-        //}
+        }
         for(int i = 0; i < 150; i++){
             int OstX = ostacoli[i].getX();
             int OstY = ostacoli[i].getY();
             g.setColor(Color.RED);
             g.fillOval(OstX,OstY,DIM_BASE,DIM_BASE);
             g.setColor(Color.BLACK);
-            g.drawOval(OstX,OstY,DIM_BASE,DIM_BASE);
-
-            
+            g.drawOval(OstX,OstY,DIM_BASE,DIM_BASE);   
         }
-        g.setColor(Color.BLUE);
-        g.fillOval((int)p.getX(),(int)p.getY(),p.getDiametro(),p.getDiametro());
+        if(palla != null){ //Senza questo si blocca perchè prova a stampare palla ma non esiste
+            g.setColor(Color.BLUE);
+            g.fillOval((int)palla.getX(),(int)palla.getY(),palla.getDiametro(),palla.getDiametro());
+        }
     }  
 
+    public void generaPallina(){    //funzione chiamata al click del JButton genera la pallina in una x random tra i vari punti della cima della piramide
+        int larghezza = getWidth();
+        int offset = (int) (Math.random() * (DIM_BASE*3));
+        int segno = (int) (Math.random() * 2);
+        if(segno == 0){
+            offset = offset*(-1);
+        }
+        int randX = (larghezza/2) + offset;
+
+        palla = new Pallina(randX, 20, 1.0, this,DIM_BASE+5);
+        repaint();
+        palla.start();
+    }
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(1000,800);
+        return new Dimension(1400,900);
     }
 
     
