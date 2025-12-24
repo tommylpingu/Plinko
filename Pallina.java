@@ -1,4 +1,5 @@
-public class Pallina extends Thread {
+public class Pallina extends Thread 
+{
 private double x;
 private double y;
 private int diametro;
@@ -52,7 +53,7 @@ public int getDiametro() {
 public void Movimento() {
     ModificaAngolo();
     stabilizzaAngolo();
-    double angoloInRadianti = Math.toRadians(angoloAttuale);
+    double angoloInRadianti = Math.toRadians(angoloAttuale); //transformazione in radianti per calcolo
     double xTmp = (double) (Math.cos(angoloInRadianti) * velocita);
     double yTmp = (double) (Math.sin(angoloInRadianti) * velocita) + gravita;
     this.x += xTmp;
