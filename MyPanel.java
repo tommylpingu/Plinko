@@ -61,7 +61,7 @@ class MyPanel extends JPanel {
         }
         int randX = (larghezza/2) + offset;
 
-        palla = new Pallina(randX, 20, 1.0, this, DIM_BASE+5);
+        palla = new Pallina(randX, 20, 1.0, this,DIM_BASE+5);
         repaint();
         palla.start();
     }
