@@ -1,4 +1,4 @@
-public class Ostacolo extends Thread {
+public class Ostacolo{
     
     int x;
     int y;
@@ -43,7 +43,7 @@ public class Ostacolo extends Thread {
 
     int posY(int i, int DIM_BASE) {         //Genera la posizione y alla chiamata 
         int riga = calcolaRiga(i);
-        return riga * (3 * DIM_BASE) + 80;       //distanzia le righe y tra di loro di 3*DIM_BASE + 80 che è un offset a caso così non è attaccato in cima
+        return riga * (3 * DIM_BASE) + 75;       //distanzia le righe y tra di loro di 3*DIM_BASE + 80 che è un offset a caso così non è attaccato in cima
     }
 
     private int calcolaRiga(int i) {        //Calcola la riga del punto i

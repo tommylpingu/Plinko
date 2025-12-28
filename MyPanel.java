@@ -12,6 +12,7 @@ class MyPanel extends JPanel {
     static int DIM_BASE = 15; //dimensione base degli oggetti 
     
     static Ostacolo[] ostacoli = new Ostacolo[150];
+    static Moltiplicatore[] moltiplicatori = new Moltiplicatore[16];
 
     Pallina palla;
 
@@ -21,9 +22,6 @@ class MyPanel extends JPanel {
         addMouseListener(mouse);
         MyKeyAdapter keyboard = new MyKeyAdapter(this);
         addKeyListener(keyboard);
-        for (int i = 0; i < ostacoli.length; i++) {                               
-            ostacoli[i] = new Ostacolo(i, DIM_BASE, getWidth(), 150);
-        }
     }
 
 
@@ -36,15 +34,26 @@ class MyPanel extends JPanel {
             for (int i = 0; i < ostacoli.length; i++) {
                 ostacoli[i] = new Ostacolo(i, DIM_BASE, getWidth(), ostacoli.length); 
             } 
+            for (int i = 0; i < moltiplicatori.length; i++) {                               
+                moltiplicatori[i] = new Moltiplicatore(i, DIM_BASE);
+            }
             inizializzati = true; 
         }
-        for(int i = 0; i < 150; i++){
+        for(int i = 0; i < ostacoli.length; i++){
             int OstX = ostacoli[i].getX();
             int OstY = ostacoli[i].getY();
             g.setColor(Color.RED);
             g.fillOval(OstX,OstY,DIM_BASE,DIM_BASE);
             g.setColor(Color.BLACK);
             g.drawOval(OstX,OstY,DIM_BASE,DIM_BASE);   
+        }
+        for(int i = 0; i < moltiplicatori.length; i++){
+            int MolX = moltiplicatori[i].getPosX();
+            int MolY = moltiplicatori[i].getPosY();
+            g.setColor(Color.GREEN); //Per ora faccio così poi farò una funzione in Moltiplicatore che genera il colore in base all'index 
+            g.fillRoundRect(MolX, MolY, DIM_BASE*3, DIM_BASE*3, 5, 5); //dovrebbe essere un quadrato con gli angoli smussati per ora lo tengo poi vedo se è bello o no
+            g.setColor(Color.BLACK);
+            g.drawRoundRect(MolX, MolY, DIM_BASE*3, DIM_BASE*3, 5, 5);
         }
         if(palla != null){ //Senza questo si blocca perchè prova a stampare palla ma non esiste
             g.setColor(Color.BLUE);
@@ -67,7 +76,7 @@ class MyPanel extends JPanel {
     }
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(1400,900);
+        return new Dimension(1400,600);
     }
 
     

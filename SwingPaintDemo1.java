@@ -26,7 +26,7 @@ public class SwingPaintDemo1 {
         
         JFrame f = new JFrame("Pinklo");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setSize(1400,900);
+        f.setSize(1400,825);
         f.setResizable(false); //Fa si che la window no possa essere cambiata di dimensioni, se no si sminchia tutto secondo me
         MyPanel p = new MyPanel();
         f.setLayout(new BorderLayout());
