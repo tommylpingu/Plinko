@@ -1,15 +1,14 @@
- public class Pallina extends Thread 
+public class Pallina extends Thread 
 {
     private double x;
     private double y;
     private int diametro;
     private double puntataAffiliata;
-    //private double angoloAttuale = 90; al momento inutilizzata // verso il basso 270 gradi a destra 0 gradi verso l'alto 90 gradi e a sinistra 180
     private double velocitaX = 0;  
     private double velocitaY = 0.5;  
-    private double gravita = 0.18; // Accelerazione gravitazionale (per il valore sono andato a tentativi)
-    private int cooldownCollisione = 0; // Evita collisioni multiple consecutive
-    private double ultimaDirezioneCollisione = 1; // 1 = destra, -1 = sinistra
+    private double gravita = 0.18;
+    private int cooldownCollisione = 0;
+    private double ultimaDirezioneCollisione = 1;
     MyPanel f = null;
 
     public Pallina(int x, int y, double puntataAffiliata, MyPanel f, int diametro) { 
@@ -26,7 +25,7 @@
             Movimento();
             f.repaint();
             try {
-                Thread.sleep(16); // vicino ai 60 fps per compensare la imprecicisione con la velocità della pallina
+                Thread.sleep(16);
             } catch (Exception e) {
                 // TODO: handle exception
             }
@@ -34,51 +33,55 @@
     }
 
     public void Movimento() {
-        // Diminuisco il cooldown
         if (cooldownCollisione > 0) {
             cooldownCollisione--;
         }   
+        
         if (cooldownCollisione == 0 && collisioneConOstacolo()) {
-            // se la pallina è nella parte sinistra dell'ostacolo rimbalza a sinistra, altrimenti a destra
-            double spintaLaterale = (Math.random() * 1.5 + 1.5); // da 1,5 a 3
+            double spintaLaterale = (Math.random() * 1.5 + 1.5);
             velocitaX = ultimaDirezioneCollisione * spintaLaterale;   
-            // diminuisco la velocità per la collisione 
             velocitaY *= 0.4;    
             cooldownCollisione = 12;
         }
+        
         velocitaY += gravita;
         if (velocitaY > 7) {
-            velocitaY = 7; // vel massima
+            velocitaY = 7;
         }   
+        
         x += velocitaX;
         y += velocitaY;
-        velocitaX *= 0.96;// attrito per provare a renderlo più realistico (per non aumentare troppo velocemente la velocità)
+        velocitaX *= 0.96;
     }
 
     public boolean collisioneConOstacolo() 
     {
-        double rOstacolo = 10;  // raggio fisso ostacolo
+        double rOstacolo = 10;
         double rPallina = diametro / 2.0;
-        // centro pallina
-        double cx = x + rPallina;
-        double cy = y + rPallina;
-
-        for (Ostacolo o : MyPanel.ostacoli) // simile al foreach di python perché non mi servono gli indici
+        
+        for (Ostacolo o : MyPanel.ostacoli)
         {
             double ox = o.getX();
             double oy = o.getY();
-            double dx = cx - ox;
-            double dy = cy - oy;
+            double dx = x - ox;
+            double dy = y - oy;
             double distanza = Math.sqrt(dx * dx + dy * dy);  
+            
             if (distanza <= rOstacolo + rPallina) 
-            {
-                // Determino la direzione del rimbalzo (sinistra o destra)
-                // in base a dove si trova la pallina rispetto all'ostacolo
+            {   
+                double sovrapposizione = (rOstacolo + rPallina) - distanza;
+                // tengo la lunghezza positiva
+                double lunghezza = Math.max(distanza, 0.001);  
+                double nx = dx / lunghezza;
+                double ny = dy / lunghezza; 
+                x += nx * (sovrapposizione + 2.5);
+                y += ny * (sovrapposizione + 2.5);         
+                // Determino la direzione del rimbalzo
                 if (dx < 0) {
-                    ultimaDirezioneCollisione = -1; // pallina a sinistra
+                    ultimaDirezioneCollisione = -1;
                 } else {
-                    ultimaDirezioneCollisione = 1; // pallina a destra
-                }   
+                    ultimaDirezioneCollisione = 1;
+                }      
                 return true;
             }
         }
