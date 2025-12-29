@@ -89,7 +89,10 @@ public class Pallina extends Thread
     }
 
     public boolean isFinish() {
-        return y > f.getHeight();
+    if(y>=730){
+        return true;
+    }
+    return false;
     }
 
     public double getX() {
