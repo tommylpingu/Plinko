@@ -28,16 +28,13 @@ public class Ostacolo{
         int riga = calcolaRiga(i);
         int totPrecedenti = 0;
 
-
         for (int k = 0; k < riga; k++) {                //Trovare i punti prima di i
             totPrecedenti += puntiPrimaRiga + k;
         }
         int colonna = i - totPrecedenti;                // capisce di quale colonna fa parte i
         int puntiRiga = puntiPrimaRiga + riga;          // numero di punti nella riga
         int larghezzaRiga = (puntiRiga - 1) * (4*DIM_BASE);   //I punti vengongo distanziati di 4*DIM_BASE quindi le varie distanze dei precedenti hanno quello tra di loro
-
         int offsetRiga = (larghPannello - larghezzaRiga) / 2;      //Centra il triangolo nel panel
-
         return offsetRiga + colonna * (4*DIM_BASE);         //trova x prendendo l'offset per centrare i punti e sommandolo al valore della colonna per le distanze tra i punti
     }
 

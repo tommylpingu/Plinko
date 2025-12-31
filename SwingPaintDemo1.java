@@ -50,4 +50,5 @@ public class SwingPaintDemo1 {
         button.addActionListener(e -> p.generaPallina());      //richiama la genera pallina
         return button;
     }
+
 }

@@ -9,14 +9,19 @@ public class Pallina extends Thread
     private double gravita = 0.18;
     private int cooldownCollisione = 0;
     private double ultimaDirezioneCollisione = 1;
+    final int OFFSET_X = 182;
+    int DIM_BASE;
     MyPanel f = null;
+    Moltiplicatore[] moltiplicatori;
 
-    public Pallina(int x, int y, double puntataAffiliata, MyPanel f, int diametro) { 
+    public Pallina(int x, int y, double puntataAffiliata, MyPanel f, int diametro, int DIM_BASE, Moltiplicatore[] moltiplicatori) { 
         this.x = x;
         this.y = y;
         this.puntataAffiliata = puntataAffiliata;
         this.f = f;
         this.diametro = diametro;
+        this.DIM_BASE = DIM_BASE;
+        this.moltiplicatori = moltiplicatori;
     }
 
     @Override
@@ -30,6 +35,19 @@ public class Pallina extends Thread
                 // TODO: handle exception
             }
         }
+        if(isFinish()){     //Quando arriva alla fine calcola la puntata e la stampa (passa la puntataAffiliata perchè prima viene moltiplicata per il modificatore che ha colpito)
+            puntataAffiliata = puntataAffiliata*getValMoltiplicatore();
+            f.stampaPunteggio(puntataAffiliata);
+        }
+    }
+
+    public double getValMoltiplicatore(){       //serve per trovare quale moltiplicatore ha colpito
+        for(int i = 0; i < moltiplicatori.length; i++){     //fa un for che scorre gli indici dell'array di moltiplicatori e controlla quale ha colpito usando isMolGiusto(posizione x)
+            if(moltiplicatori[i].isMoltGiusto(x)){
+                return moltiplicatori[i].valore;        //ritorna con il valore del moltiplicatore selezionato  
+            }
+        }
+        return 0;
     }
 
     public void Movimento() {
@@ -89,10 +107,10 @@ public class Pallina extends Thread
     }
 
     public boolean isFinish() {
-    if(y>=730){
-        return true;
-    }
-    return false;
+        if(y>=730){
+            return true;
+        }
+        return false;
     }
 
     public double getX() {
