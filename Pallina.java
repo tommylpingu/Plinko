@@ -55,7 +55,7 @@ public class Pallina extends Thread
             cooldownCollisione--;
         }    
         if (cooldownCollisione == 0 && collisioneConOstacolo()) {
-            double spintaLaterale = (Math.random() * 1.5 + 1.5);// Era (Math.random() * 1.5 + 1.5)
+            double spintaLaterale = (Math.random() * 0.8 + 0.8); 
             velocitaX = ultimaDirezioneCollisione * spintaLaterale;   
             velocitaY *= 0.4;    
             cooldownCollisione = 12;
@@ -90,12 +90,15 @@ public class Pallina extends Thread
                 double nx = dx / lunghezza;
                 double ny = dy / lunghezza; 
                 x += nx * (sovrapposizione + 2.5);
-                y += ny * (sovrapposizione + 2.5);         
+                y += ny * (sovrapposizione + 2.5);  
+                if (dy < 0) {  // sta arrivando dall'alto
+                velocitaY = -Math.abs(velocitaY) * 0.5;  // rimbalzo verso l'alto(0.5 provvisorio)
+                }       
                 // Determino la direzione del rimbalzo
                 if (dx < 0) {
-                    ultimaDirezioneCollisione = -1;
+                    ultimaDirezioneCollisione = -0.5;
                 } else {
-                    ultimaDirezioneCollisione = 1;
+                    ultimaDirezioneCollisione = 0.5;
                 }      
                 return true;
             }

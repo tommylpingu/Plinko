@@ -48,10 +48,10 @@ public class Moltiplicatore {
             case 3:  valore = 3.5;   break;
             case 4:  valore = 1.8;   break;
             case 5:  valore = 1; break;
-            case 6:  valore = 0.3; break;
-            case 7:  valore = 0.1; break;
-            case 8:  valore = 0.1; break;
-            case 9:  valore = 0.3; break;
+            case 6:  valore = 0.5; break;
+            case 7:  valore = 0.3; break;
+            case 8:  valore = 0.3; break;
+            case 9:  valore = 0.5; break;
             case 10: valore = 1; break;
             case 11: valore = 1.8;   break;
             case 12: valore = 3.5;   break;
