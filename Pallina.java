@@ -92,13 +92,13 @@ public class Pallina extends Thread
                 x += nx * (sovrapposizione + 2.5);
                 y += ny * (sovrapposizione + 2.5);  
                 if (dy < 0) {  // sta arrivando dall'alto
-                velocitaY = -Math.abs(velocitaY) * 0.5;  // rimbalzo verso l'alto(0.5 provvisorio)
+                velocitaY = -Math.abs(velocitaY) * 0.7;  // rimbalzo verso l'alto(0.5 provvisorio)
                 }       
                 // Determino la direzione del rimbalzo
                 if (dx < 0) {
-                    ultimaDirezioneCollisione = -0.5;
+                    ultimaDirezioneCollisione = -0.8;
                 } else {
-                    ultimaDirezioneCollisione = 0.5;
+                    ultimaDirezioneCollisione = 0.8;
                 }      
                 return true;
             }
