@@ -53,20 +53,17 @@ public class Pallina extends Thread
     public void Movimento() {
         if (cooldownCollisione > 0) {
             cooldownCollisione--;
-        }   
-        
+        }    
         if (cooldownCollisione == 0 && collisioneConOstacolo()) {
-            double spintaLaterale = (Math.random() * 1.5 + 1.5);
+            double spintaLaterale = (Math.random() * 1.5 + 1.5);// Era (Math.random() * 1.5 + 1.5)
             velocitaX = ultimaDirezioneCollisione * spintaLaterale;   
             velocitaY *= 0.4;    
             cooldownCollisione = 12;
-        }
-        
+        } 
         velocitaY += gravita;
         if (velocitaY > 7) {
             velocitaY = 7;
-        }   
-        
+        }    
         x += velocitaX;
         y += velocitaY;
         velocitaX *= 0.96;

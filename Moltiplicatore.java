@@ -24,6 +24,7 @@ public class Moltiplicatore {
 
     public void setValore(){                //usato per settare il valore del moltiplicatore corrente in base all'indice, SE DOBBIAMO MODIFICARE I MOLTIPLICATORI QUESTO E' IL PUNTO
         switch (index) {
+            /* 
             case 0:  valore = 88;  break;
             case 1:  valore = 18;  break;
             case 2:  valore = 11;  break;
@@ -40,7 +41,25 @@ public class Moltiplicatore {
             case 13: valore = 11;  break;
             case 14: valore = 18;  break;
             case 15: valore = 88;  break;
+            default: valore = 0;   break;*/
+            case 0:  valore = 58;  break;
+            case 1:  valore = 14.5;  break;
+            case 2:  valore = 5.6;  break;
+            case 3:  valore = 3.5;   break;
+            case 4:  valore = 1.8;   break;
+            case 5:  valore = 1; break;
+            case 6:  valore = 0.3; break;
+            case 7:  valore = 0.1; break;
+            case 8:  valore = 0.1; break;
+            case 9:  valore = 0.3; break;
+            case 10: valore = 1; break;
+            case 11: valore = 1.8;   break;
+            case 12: valore = 3.5;   break;
+            case 13: valore = 5.6;  break;
+            case 14: valore = 14.5;  break;
+            case 15: valore = 58;  break;
             default: valore = 0;   break;
+            
         }
     }
 
