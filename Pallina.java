@@ -35,9 +35,14 @@ public class Pallina extends Thread
                 // TODO: handle exception
             }
         }
-        if(isFinish()){     //Quando arriva alla fine calcola la puntata e la stampa (passa la puntataAffiliata perchè prima viene moltiplicata per il modificatore che ha colpito)
-            puntataAffiliata = puntataAffiliata*getValMoltiplicatore();
+        if(isFinish())
+        {   //Quando arriva alla fine calcola la puntata e la stampa (passa la puntataAffiliata perchè prima viene moltiplicata per il modificatore che ha colpito)
+            double saldoPrima = f.punteggio.getSaldoTot();  
+            double moltiplicatore = getValMoltiplicatore();
+            puntataAffiliata = puntataAffiliata * moltiplicatore;
             f.stampaPunteggio(puntataAffiliata);
+            double saldoDopo = f.punteggio.getSaldoTot();       
+            PassaggioDati.passaggio(saldoPrima, saldoDopo, puntataAffiliata/moltiplicatore, moltiplicatore);
         }
     }
 

@@ -1,44 +1,51 @@
 import javax.swing.SwingUtilities;
-
 import java.awt.BorderLayout;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class SwingPaintDemo1 {
     
     private static JButton button;
     public static void main(String[] args) {
+         // Aggiungi questo SUBITO all'inizio del main
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                PassaggioDati.stampaRiepilogo();
+                System.out.println("Riepilogo creato");
+            }
+        });
 
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI();
             }
         });
-
     }
     
     private static void createAndShowGUI() {
-        
-        JFrame f = new JFrame("Pinklo");
+         JFrame f = new JFrame("Pinklo");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setSize(1400,825);
-        f.setResizable(false); //Fa si che la window no possa essere cambiata di dimensioni, se no si sminchia tutto secondo me
+        f.setResizable(false);
         MyPanel p = new MyPanel();
         f.setLayout(new BorderLayout());
         f.add(p, BorderLayout.CENTER);
-
-        button = creaButton(p);         //Crea il bottone a sinistra 
-        //f.add(button, BorderLayout.WEST);
-
-        JPanel westPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));   //lo mette in un èanel a sinistra dove metteremo tutte le interazioni dell'utente
+        button = creaButton(p);
+        JPanel westPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         westPanel.add(button);
-
         f.add(westPanel, BorderLayout.WEST);
+        // questo dovrebbe far stampare il riepilogo alla chiusura della finestra
+        f.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                PassaggioDati.stampaRiepilogo();
+            }
+        });
 
         f.setVisible(true);
     }
