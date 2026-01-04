@@ -30,6 +30,8 @@ class MyPanel extends JPanel {
         testo = new JLabel(SALDO_INIZIO+"€"); //inizia scrivendo il saldo iniziale (valore costante tra le variabili in cima)
         testo.setBounds(10, 10, 200, 30);   //posizione del testo VA MODIFICATA, PER ORA IN CIMA ANDRA MESSO NELLA BARRA A SINISTRA
         add(testo);
+        PassaggioDati.cancellaDati();
+
     }
 
 

@@ -5,8 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+ 
 
 public class SwingPaintDemo1 {
     
@@ -39,14 +38,6 @@ public class SwingPaintDemo1 {
         JPanel westPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         westPanel.add(button);
         f.add(westPanel, BorderLayout.WEST);
-        // questo dovrebbe far stampare il riepilogo alla chiusura della finestra
-        f.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                PassaggioDati.stampaRiepilogo();
-            }
-        });
-
         f.setVisible(true);
     }
 

@@ -26,7 +26,8 @@ public class Pallina extends Thread
 
     @Override
     public void run() {
-        while (!isFinish()) {
+        double saldoPrima = f.punteggio.getSaldoTot()+10;
+        while (!isFinish()) {      
             Movimento();
             f.repaint();
             try {
@@ -37,7 +38,7 @@ public class Pallina extends Thread
         }
         if(isFinish())
         {   //Quando arriva alla fine calcola la puntata e la stampa (passa la puntataAffiliata perchè prima viene moltiplicata per il modificatore che ha colpito)
-            double saldoPrima = f.punteggio.getSaldoTot();  
+            
             double moltiplicatore = getValMoltiplicatore();
             puntataAffiliata = puntataAffiliata * moltiplicatore;
             f.stampaPunteggio(puntataAffiliata);

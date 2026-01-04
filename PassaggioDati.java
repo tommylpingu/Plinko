@@ -21,43 +21,57 @@ public class PassaggioDati {
         }
     }
 
-
-       public static void stampaRiepilogo() {
-        try {
-            File file = new File("plinko_dati.csv");
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            String line;
-            double profittoTotale = 0;
-            int numCadute = 0;
-            double saldoIniziale = 0;
-            double saldoFinale = 0;
-            reader.readLine(); // Salta l'header
-            while ((line = reader.readLine()) != null) {
-                String[] dati = line.split(",");
-                if (numCadute == 0) {
-                    saldoIniziale = Double.parseDouble(dati[0]);
-                }
-                double profitto = Double.parseDouble(dati[5]);
-                profittoTotale += profitto;
-                saldoFinale = Double.parseDouble(dati[1]);
-                numCadute++;
+    public static void stampaRiepilogo() {
+    try {
+        File file = new File("plinko_dati.csv");
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        String line;
+        double profittoTotale = 0;
+        int numCadute = 0;
+        double saldoFinale = 0;
+        reader.readLine(); // Salta l'header
+        while ((line = reader.readLine()) != null) 
+            {
+            String[] dati = line.split(",");
+            double profitto = Double.parseDouble(dati[4]);
+            profittoTotale += profitto;
+            saldoFinale = Double.parseDouble(dati[1]);
+            numCadute++;
             } 
-            reader.close();
-            
-            // Scrivi il riepilogo su file
-            FileWriter fw = new FileWriter("riepilogo.txt");
-            PrintWriter writer = new PrintWriter(fw); 
-            writer.println("------ RIEPILOGO SIMULAZIONE ------");
-            writer.println("Saldo iniziale: " + String.format("%.2f", saldoIniziale) + "€");
-            writer.println("Saldo finale: " + String.format("%.2f", saldoFinale) + "€");
-            writer.println("Numero cadute: " + numCadute);
-            writer.println("Profitto totale: " + String.format("%.2f", profittoTotale) + "€");
-            writer.println("----------------------------"); 
-            writer.flush(); // non ho capito benissimo a cosa serve ma ho seguito un video inteoria forza la scrittura immediata 
-            writer.close();
-            fw.close();      
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        reader.close();
+        
+        // Scrive sul file
+        PrintWriter writer = new PrintWriter(new FileWriter("riepilogo.csv"));
+        writer.println("--- RIEPILOGO SIMULAZIONE ---");
+        writer.println("Saldo iniziale: " + 1000 + "€");
+        writer.println("Saldo finale: " + String.format("%.2f", saldoFinale) + "€");
+        writer.println("Numero cadute: " + numCadute);
+        writer.println("Profitto totale: " + String.format("%.2f", profittoTotale) + "€");
+        writer.println("------------------------------"); 
+        writer.flush();
+        writer.close();   
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+}
+
+ 
+
+ 
+
+ public static void cancellaDati()//elimina il file quando inizia il programma
+  {
+    try {
+        File file = new File("plinko_dati.csv");
+        if (file.exists()) {
+            file.delete();
+        }
+         File file2 = new File("riepilogo.csv");
+        if (file2.exists()) {
+            file2.delete();
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+  }
 }
