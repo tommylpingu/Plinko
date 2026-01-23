@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -12,16 +13,16 @@ class MyPanel extends JPanel {
     boolean inizializzati = false;
 
     private JLabel testo;   //testo per il saldo
-
     static int DIM_BASE = 15; //dimensione base degli oggetti 
     static double SALDO_INIZIO = 1000;
-    
+    public Font font;
     static Ostacolo[] ostacoli = new Ostacolo[150];
     static Moltiplicatore[] moltiplicatori = new Moltiplicatore[16];
     ArrayList<Pallina> palline = new ArrayList<>(); //dichiarazione vettore dinamico di palline
     Punteggio punteggio = new Punteggio(SALDO_INIZIO); //inizializza saldo tot 
 
     public MyPanel() {
+        this.setBackground(new Color(0, 0, 139));
         setBorder(BorderFactory.createLineBorder(Color.black));
         MyMouseAdapter mouse = new MyMouseAdapter(this);
         addMouseListener(mouse);
@@ -31,14 +32,13 @@ class MyPanel extends JPanel {
         testo.setBounds(10, 10, 200, 30);   //posizione del testo VA MODIFICATA, PER ORA IN CIMA ANDRA MESSO NELLA BARRA A SINISTRA
         add(testo);
         PassaggioDati.cancellaDati();
-
     }
 
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);   
-        
+
         if (!inizializzati) {       
             for (int i = 0; i < ostacoli.length; i++) {
                 ostacoli[i] = new Ostacolo(i, DIM_BASE, getWidth(), ostacoli.length); 
@@ -53,9 +53,9 @@ class MyPanel extends JPanel {
         for(int i = 0; i < ostacoli.length; i++){
             int OstX = ostacoli[i].getX();
             int OstY = ostacoli[i].getY();
-            g.setColor(Color.RED);
+            g.setColor(Color.WHITE);
             g.fillOval(OstX,OstY,DIM_BASE,DIM_BASE);
-            g.setColor(Color.BLACK);
+            g.setColor(Color.GRAY);
             g.drawOval(OstX,OstY,DIM_BASE,DIM_BASE);   
         }
         
@@ -63,10 +63,35 @@ class MyPanel extends JPanel {
         for(int i = 0; i < moltiplicatori.length; i++){
             int MolX = moltiplicatori[i].getPosX();
             int MolY = moltiplicatori[i].getPosY();
-            g.setColor(Color.GREEN);
+            switch ((int)(moltiplicatori[i].valore*10)) {
+                case 580:  g.setColor(new Color(128,0,128));  break;
+                case 145:  g.setColor(new Color(139,0,0));  break;
+                case 56:  g.setColor(new Color(255,0,0));   break;
+                case 35:  g.setColor(new Color(255,140,0));   break;
+                case 18:  g.setColor(new Color(255,165,0));    break;
+                case 10:  g.setColor(new Color(255,163,62));  break;
+                case 5:  g.setColor(new Color(255,255,0));  break;
+                case 3:  g.setColor(new Color(255,255,224));  break;
+            }
             g.fillRoundRect(MolX, MolY, DIM_BASE*3, DIM_BASE*3, 5, 5);
             g.setColor(Color.BLACK);
             g.drawRoundRect(MolX, MolY, DIM_BASE*3, DIM_BASE*3, 5, 5);
+
+            //setta il font per il drawString
+            font = new Font("Cambria", Font.BOLD, 12);
+            g.setColor(Color.BLACK);
+
+            g.setFont(font);
+            g.setColor(Color.BLACK);
+            if(moltiplicatori[i].valore < 10){                          //stampo le lable su i moltiplicatori, se il valore ha una cifra decimale lo stampa più in la per centrarlo
+                String testoValore = moltiplicatori[i].valore + "x";    //controllo decimali
+                g.drawString(testoValore, MolX + 10, MolY + 25);
+            }
+            else{
+                String testoValore = moltiplicatori[i].valore + "x";
+                g.drawString(testoValore, MolX + 6, MolY + 25);
+            }
+
         }
         
         // Disegna le palline nel vettore dinamico   
@@ -74,7 +99,7 @@ class MyPanel extends JPanel {
         {
             if(pallina != null) 
             {
-                g.setColor(Color.BLUE);
+                g.setColor(Color.gray);
                 g.fillOval((int)pallina.getX(), (int)pallina.getY(), 
                 pallina.getDiametro(), pallina.getDiametro());
             }
