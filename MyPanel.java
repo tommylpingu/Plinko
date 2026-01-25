@@ -2,15 +2,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
-import javax.swing.JPanel; 
-import java.awt.Image;
- 
+import javax.swing.JPanel;
+import javax.swing.JTextField;  
  
 
 class MyPanel extends JPanel {
@@ -26,31 +22,30 @@ class MyPanel extends JPanel {
     static Moltiplicatore[] moltiplicatori = new Moltiplicatore[16];
     ArrayList<Pallina> palline = new ArrayList<>(); //dichiarazione vettore dinamico di palline
     Punteggio punteggio = new Punteggio(SALDO_INIZIO); //inizializza saldo tot 
+    JTextField textField;
 
-    public MyPanel() {
-        this.setBackground(new Color(0, 0, 139));
+    public MyPanel(){
+        this.setBackground(new Color(0, 80, 139));
         setBorder(BorderFactory.createLineBorder(Color.black));
         MyMouseAdapter mouse = new MyMouseAdapter(this);
         addMouseListener(mouse);
         MyKeyAdapter keyboard = new MyKeyAdapter(this);
         addKeyListener(keyboard);
         testo = new JLabel(SALDO_INIZIO+"€"); //inizia scrivendo il saldo iniziale (valore costante tra le variabili in cima)
+        testo.setForeground(Color.WHITE);
         testo.setBounds(10, 10, 200, 30);   //posizione del testo VA MODIFICATA, PER ORA IN CIMA ANDRA MESSO NELLA BARRA A SINISTRA
         add(testo);
         PassaggioDati.cancellaDati();
+    }
+
+    public void setTextField(JTextField textField) { //Prende l'oggetto textField per poter ottenere il valore scritto dentro
+        this.textField = textField;
     }
  
 
     @Override
     public void paintComponent(Graphics g) {
- 
-    
-        super.paintComponent(g); 
-         
-        
- 
-        super.paintComponent(g);   
-
+        super.paintComponent(g);
  
         if (!inizializzati) {       
             for (int i = 0; i < ostacoli.length; i++) {
@@ -112,9 +107,10 @@ class MyPanel extends JPanel {
         {
             if(pallina != null) 
             {
+                g.setColor(Color.black);
+                g.drawOval((int)pallina.getX(), (int)pallina.getY(),pallina.getDiametro(), pallina.getDiametro());
                 g.setColor(Color.gray);
-                g.fillOval((int)pallina.getX(), (int)pallina.getY(), 
-                pallina.getDiametro(), pallina.getDiametro());
+                g.fillOval((int)pallina.getX(), (int)pallina.getY(),pallina.getDiametro(), pallina.getDiametro());
             }
         }    
     }  
@@ -123,17 +119,29 @@ class MyPanel extends JPanel {
         int larghezza = getWidth();
         int offset = (int) (Math.random() * (DIM_BASE*3));
         int segno = (int) (Math.random() * 2);
-        int soldiScommessi = 10; //Questo valore dobbiamo cambiarlo in base a quanto vuole puntare l'utente 
-        stampaPunteggio(-soldiScommessi); //chiami per togliere la puntata dal saldo
-        if(segno == 0)
-        {
-            offset = offset*(-1);
+
+        int soldiScommessi = 0;
+        try {
+            soldiScommessi = Integer.parseInt(textField.getText());
+        } catch (Exception e) {
+            soldiScommessi = 0;
         }
-        int randX = (larghezza/2) + offset;                                                              
-        Pallina nuovaPallina = new Pallina(randX, 20, soldiScommessi, this, DIM_BASE+5, DIM_BASE, moltiplicatori); //moltiplicatori è l'array di moltiplicatori che passo a pallina per farle calcolare il moltiplicatore da usare sulla puntata  
-        palline.add(nuovaPallina);
-        nuovaPallina.start();
-        repaint();
+        if(controllaSaldo(soldiScommessi)){//se il saldo va in negativo non fa partire la puntata
+            stampaPunteggio(-soldiScommessi); //chiami per togliere la puntata dal saldo
+            if(segno == 0)
+            {
+                offset = offset*(-1);
+            }
+            int randX = (larghezza/2) + offset;                                                              
+            Pallina nuovaPallina = new Pallina(randX, 20, soldiScommessi, this, DIM_BASE+5, DIM_BASE, moltiplicatori); //moltiplicatori è l'array di moltiplicatori che passo a pallina per farle calcolare il moltiplicatore da usare sulla puntata  
+            palline.add(nuovaPallina);
+            nuovaPallina.start();
+            repaint();
+        }else{
+            testo.setText("PUNTATA TROPPO ALTA!!!");
+            repaint();
+        }
+
     }
     
     public void stampaPunteggio(double puntataAffiliata){ //Richiamare sta funzione passandogli i soldi scommessi e per stamparli (quando premi il pulsante passo la puntata negativa così la toglie, quando la pallina arriva passo la puntataAffiliata che cambia in base al moltiplicatore che ha colpito)
@@ -142,6 +150,14 @@ class MyPanel extends JPanel {
         testo.setText(punti + "€");
     }
     
+    public boolean controllaSaldo(double puntataAffiliata){
+        if(punteggio.saldoTot - puntataAffiliata < 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(1400,600);
