@@ -1,6 +1,7 @@
 import javax.swing.SwingUtilities;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Dimension;
@@ -10,6 +11,7 @@ import java.awt.FlowLayout;
 public class SwingPaintDemo1 {
     
     private static JButton button;
+    private static JComboBox<Integer> comboBox;
     public static void main(String[] args) {
          // Aggiungi questo SUBITO all'inizio del main
         Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -35,8 +37,11 @@ public class SwingPaintDemo1 {
         f.setLayout(new BorderLayout());
         f.add(p, BorderLayout.CENTER);
         button = creaButton(p);
+        comboBox = creaComboBox(p);
         JPanel westPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        westPanel.setPreferredSize(new Dimension(90, 825));
         westPanel.add(button);
+        westPanel.add(comboBox);
         f.add(westPanel, BorderLayout.WEST);
         f.setVisible(true);
     }
@@ -48,5 +53,24 @@ public class SwingPaintDemo1 {
         button.addActionListener(e -> p.generaPallina());      //richiama la genera pallina
         return button;
     }
+
+  private static JComboBox<Integer> creaComboBox(MyPanel p) {    
+    Integer[] numeri = new Integer[32];
+    for (int i = 0; i < 32; i++) 
+    {
+        numeri[i] = i + 1;  
+    }
+    JComboBox<Integer> comboBox = new JComboBox<>(numeri);
+    comboBox.setSelectedIndex(0); //in modo che ci sia qualcosa di selezionato 
+    comboBox.setFocusable(false);
+    comboBox.setPreferredSize(new Dimension(80, 30)); 
+    comboBox.addActionListener(e -> {
+        int nPalline = (int) comboBox.getSelectedItem();
+        for (int i = 0; i < nPalline; i++) {
+            p.generaPallina();
+        }      
+    });
+    return comboBox;
+}
 
 }

@@ -1,13 +1,19 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel; 
+import java.awt.Image;
+ 
+ 
 
 class MyPanel extends JPanel {
+   
  
     boolean inizializzati = false;
 
@@ -31,13 +37,15 @@ class MyPanel extends JPanel {
         testo.setBounds(10, 10, 200, 30);   //posizione del testo VA MODIFICATA, PER ORA IN CIMA ANDRA MESSO NELLA BARRA A SINISTRA
         add(testo);
         PassaggioDati.cancellaDati();
-
+       
     }
 
 
     @Override
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);   
+    
+        super.paintComponent(g); 
+         
         
         if (!inizializzati) {       
             for (int i = 0; i < ostacoli.length; i++) {
