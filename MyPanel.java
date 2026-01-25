@@ -38,24 +38,20 @@ class MyPanel extends JPanel {
         testo.setBounds(10, 10, 200, 30);   //posizione del testo VA MODIFICATA, PER ORA IN CIMA ANDRA MESSO NELLA BARRA A SINISTRA
         add(testo);
         PassaggioDati.cancellaDati();
-<<<<<<< HEAD
-       
-=======
->>>>>>> origin/main
     }
-
+ 
 
     @Override
     public void paintComponent(Graphics g) {
-<<<<<<< HEAD
+ 
     
         super.paintComponent(g); 
          
         
-=======
+ 
         super.paintComponent(g);   
 
->>>>>>> origin/main
+ 
         if (!inizializzati) {       
             for (int i = 0; i < ostacoli.length; i++) {
                 ostacoli[i] = new Ostacolo(i, DIM_BASE, getWidth(), ostacoli.length); 
