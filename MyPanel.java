@@ -2,16 +2,18 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;  
  
 
-class MyPanel extends JPanel {
+class MyPanel extends JPanel implements java.awt.event.ActionListener{
    
- 
+    boolean auto = false;
     boolean inizializzati = false;
 
     private JLabel testo;   //testo per il saldo
@@ -22,7 +24,9 @@ class MyPanel extends JPanel {
     static Moltiplicatore[] moltiplicatori = new Moltiplicatore[16];
     ArrayList<Pallina> palline = new ArrayList<>(); //dichiarazione vettore dinamico di palline
     Punteggio punteggio = new Punteggio(SALDO_INIZIO); //inizializza saldo tot 
+
     JTextField textField;
+    JCheckBox checkBox;
 
     public MyPanel(){
         this.setBackground(new Color(0, 80, 139));
@@ -41,7 +45,27 @@ class MyPanel extends JPanel {
     public void setTextField(JTextField textField) { //Prende l'oggetto textField per poter ottenere il valore scritto dentro
         this.textField = textField;
     }
+
+    public void setCheckBox(JCheckBox checkBox){
+        this.checkBox = checkBox;
+        this.checkBox.addActionListener(this);
+    }
  
+    @Override
+    public void actionPerformed(ActionEvent e){
+        if(checkBox != null) {
+            if(checkBox.isSelected()){
+                AutoBet autoBet = new AutoBet(this);
+                auto = true;
+                if (!autoBet.isAlive()) { 
+                    autoBet.start();
+                }
+            } else {
+                auto = false;
+            }
+        }
+    }
+
 
     @Override
     public void paintComponent(Graphics g) {
