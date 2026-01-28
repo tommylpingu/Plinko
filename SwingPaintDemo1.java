@@ -15,6 +15,7 @@ public class SwingPaintDemo1 {
     private static JComboBox<Integer> comboBox;
     private static JTextField textField;
     private static JCheckBox checkBox;
+    static int nCombo = 10000; 
 
     public static void main(String[] args) {
          // Aggiungi questo SUBITO all'inizio del main
@@ -94,8 +95,8 @@ public class SwingPaintDemo1 {
     }
 
     private static JComboBox<Integer> creaComboBox(MyPanel p) {    
-        Integer[] numeri = new Integer[32];
-        for (int i = 0; i < 32; i++) 
+        Integer[] numeri = new Integer[nCombo];
+        for (int i = 0; i < nCombo; i++) 
         {
             numeri[i] = i + 1;  
         }

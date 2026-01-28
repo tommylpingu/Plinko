@@ -87,7 +87,7 @@ class MyPanel extends JPanel implements java.awt.event.ActionListener{
             int OstY = ostacoli[i].getY();
             g.setColor(Color.WHITE);
             g.fillOval(OstX,OstY,DIM_BASE,DIM_BASE);
-            g.setColor(Color.GRAY);
+            g.setColor(Color.BLACK);
             g.drawOval(OstX,OstY,DIM_BASE,DIM_BASE);   
         }
         
@@ -127,14 +127,14 @@ class MyPanel extends JPanel implements java.awt.event.ActionListener{
         }
         
         // Disegna le palline nel vettore dinamico   
-        for(Pallina pallina : palline) //for each perchè per ora non ci interessa l'indice poi in caso cambio
+        for(Pallina pallina : new ArrayList<>(palline)) //for each perchè per ora non ci interessa l'indice poi in caso cambio
         {
             if(pallina != null) 
             {
-                g.setColor(Color.black);
-                g.drawOval((int)pallina.getX(), (int)pallina.getY(),pallina.getDiametro(), pallina.getDiametro());
                 g.setColor(Color.gray);
                 g.fillOval((int)pallina.getX(), (int)pallina.getY(),pallina.getDiametro(), pallina.getDiametro());
+                g.setColor(Color.black);
+                g.drawOval((int)pallina.getX(), (int)pallina.getY(),pallina.getDiametro(), pallina.getDiametro());
             }
         }    
     }  
