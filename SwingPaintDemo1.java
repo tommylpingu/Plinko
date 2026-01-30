@@ -1,6 +1,7 @@
 import javax.swing.SwingUtilities;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,6 +16,8 @@ public class SwingPaintDemo1 {
     private static JButton button;
     private static JComboBox<Integer> comboBox;
     private static JTextField textField;
+    private static JCheckBox checkBox;
+    static int nCombo = 10000; 
 
     public static void main(String[] args) {
          // Aggiungi questo SUBITO all'inizio del main
@@ -48,6 +51,7 @@ public class SwingPaintDemo1 {
         button = creaButton(p);
         comboBox = creaComboBox(p);
         textField = creaTextField(p);
+        checkBox = creaCheckBox(p);
         
         //crea westPanel
         JPanel westPanel = new JPanel();
@@ -61,6 +65,7 @@ public class SwingPaintDemo1 {
         button.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
         comboBox.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
         textField.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+        checkBox.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
         
         //aggiunge componenti con un po' di spazio tra di loro
         westPanel.add(button);
@@ -70,6 +75,9 @@ public class SwingPaintDemo1 {
         westPanel.add(javax.swing.Box.createVerticalStrut(5));
 
         westPanel.add(textField);
+        westPanel.add(javax.swing.Box.createVerticalStrut(5));
+
+        westPanel.add(checkBox);
         westPanel.add(javax.swing.Box.createVerticalStrut(5));
         
         JButton ButtonStatistiche = new JButton("Valori");
@@ -82,6 +90,7 @@ public class SwingPaintDemo1 {
         //finisce di settare
         f.add(westPanel, BorderLayout.WEST);
         p.setTextField(textField);
+        p.setCheckBox(checkBox);
         f.setVisible(true);
     }
 
@@ -95,8 +104,8 @@ public class SwingPaintDemo1 {
     }
 
     private static JComboBox<Integer> creaComboBox(MyPanel p) {    
-        Integer[] numeri = new Integer[32];
-        for (int i = 0; i < 32; i++) 
+        Integer[] numeri = new Integer[nCombo];
+        for (int i = 0; i < nCombo; i++) 
         {
             numeri[i] = i + 1;  
         }
@@ -122,6 +131,7 @@ public class SwingPaintDemo1 {
         return textField;
     }
 
+<<<<<<< HEAD
     private static void mostraStatistiche(MyPanel p) {
     JFrame statsFrame = new JFrame("Statistiche Moltiplicatori");
     statsFrame.setSize(300, 450);
@@ -144,4 +154,10 @@ public class SwingPaintDemo1 {
     statsFrame.add(panel);
     statsFrame.setVisible(true);
 }
+=======
+    private static JCheckBox creaCheckBox(MyPanel p){
+        checkBox = new JCheckBox("Auto bet");
+        return checkBox;
+    }
+>>>>>>> origin/main
 }

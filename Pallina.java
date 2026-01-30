@@ -44,6 +44,7 @@ public class Pallina extends Thread
             f.stampaPunteggio(puntataAffiliata);
             double saldoDopo = f.punteggio.getSaldoTot();       
             PassaggioDati.passaggio(saldoPrima, saldoDopo, puntataAffiliata/moltiplicatore, moltiplicatore);
+            
         }
     }
 

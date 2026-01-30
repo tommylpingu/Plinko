@@ -2,16 +2,18 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;  
  
 
-class MyPanel extends JPanel {
+class MyPanel extends JPanel implements java.awt.event.ActionListener{
    
- 
+    boolean auto = false;
     boolean inizializzati = false;
 
     private JLabel testo;   //testo per il saldo
@@ -22,7 +24,9 @@ class MyPanel extends JPanel {
     static Moltiplicatore[] moltiplicatori = new Moltiplicatore[16];
     ArrayList<Pallina> palline = new ArrayList<>(); //dichiarazione vettore dinamico di palline
     Punteggio punteggio = new Punteggio(SALDO_INIZIO); //inizializza saldo tot 
+
     JTextField textField;
+    JCheckBox checkBox;
 
     public MyPanel(){
         this.setBackground(new Color(0, 80, 139));
@@ -41,7 +45,27 @@ class MyPanel extends JPanel {
     public void setTextField(JTextField textField) { //Prende l'oggetto textField per poter ottenere il valore scritto dentro
         this.textField = textField;
     }
+
+    public void setCheckBox(JCheckBox checkBox){
+        this.checkBox = checkBox;
+        this.checkBox.addActionListener(this);
+    }
  
+    @Override
+    public void actionPerformed(ActionEvent e){
+        if(checkBox != null) {
+            if(checkBox.isSelected()){
+                AutoBet autoBet = new AutoBet(this);
+                auto = true;
+                if (!autoBet.isAlive()) { 
+                    autoBet.start();
+                }
+            } else {
+                auto = false;
+            }
+        }
+    }
+
 
     @Override
     public void paintComponent(Graphics g) {
@@ -63,7 +87,7 @@ class MyPanel extends JPanel {
             int OstY = ostacoli[i].getY();
             g.setColor(Color.WHITE);
             g.fillOval(OstX,OstY,DIM_BASE,DIM_BASE);
-            g.setColor(Color.GRAY);
+            g.setColor(Color.BLACK);
             g.drawOval(OstX,OstY,DIM_BASE,DIM_BASE);   
         }
         
@@ -103,14 +127,14 @@ class MyPanel extends JPanel {
         }
         
         // Disegna le palline nel vettore dinamico   
-        for(Pallina pallina : palline) //for each perchè per ora non ci interessa l'indice poi in caso cambio
+        for(Pallina pallina : new ArrayList<>(palline)) //for each perchè per ora non ci interessa l'indice poi in caso cambio
         {
             if(pallina != null) 
             {
-                g.setColor(Color.black);
-                g.drawOval((int)pallina.getX(), (int)pallina.getY(),pallina.getDiametro(), pallina.getDiametro());
                 g.setColor(Color.gray);
                 g.fillOval((int)pallina.getX(), (int)pallina.getY(),pallina.getDiametro(), pallina.getDiametro());
+                g.setColor(Color.black);
+                g.drawOval((int)pallina.getX(), (int)pallina.getY(),pallina.getDiametro(), pallina.getDiametro());
             }
         }    
     }  
