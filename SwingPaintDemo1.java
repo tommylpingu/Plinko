@@ -131,7 +131,7 @@ public class SwingPaintDemo1 {
         return textField;
     }
 
-<<<<<<< HEAD
+ 
     private static void mostraStatistiche(MyPanel p) {
     JFrame statsFrame = new JFrame("Statistiche Moltiplicatori");
     statsFrame.setSize(300, 450);
@@ -154,10 +154,10 @@ public class SwingPaintDemo1 {
     statsFrame.add(panel);
     statsFrame.setVisible(true);
 }
-=======
+ 
     private static JCheckBox creaCheckBox(MyPanel p){
         checkBox = new JCheckBox("Auto bet");
         return checkBox;
     }
->>>>>>> origin/main
+ 
 }
