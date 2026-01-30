@@ -3,10 +3,12 @@ import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import java.awt.Dimension; 
+import java.awt.Dimension;
+import java.awt.Font; 
 
 public class SwingPaintDemo1 {
     
@@ -70,6 +72,13 @@ public class SwingPaintDemo1 {
         westPanel.add(textField);
         westPanel.add(javax.swing.Box.createVerticalStrut(5));
         
+        JButton ButtonStatistiche = new JButton("Valori");
+        ButtonStatistiche.setFocusable(false);
+        ButtonStatistiche.setMaximumSize(new Dimension(80, 40)); // Per farlo uguale agli altri
+        ButtonStatistiche.addActionListener(e -> mostraStatistiche(p)); 
+        westPanel.add(ButtonStatistiche);
+        ButtonStatistiche.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+
         //finisce di settare
         f.add(westPanel, BorderLayout.WEST);
         p.setTextField(textField);
@@ -113,4 +122,26 @@ public class SwingPaintDemo1 {
         return textField;
     }
 
+    private static void mostraStatistiche(MyPanel p) {
+    JFrame statsFrame = new JFrame("Statistiche Moltiplicatori");
+    statsFrame.setSize(300, 450);
+    statsFrame.setLocationRelativeTo(null); // Centra la finestra
+    JPanel panel = new JPanel();
+    panel.setLayout(new javax.swing.BoxLayout(panel, javax.swing.BoxLayout.Y_AXIS));
+    panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    JLabel titolo = new JLabel("PALLINE PER MOLTIPLICATORE:");
+    titolo.setFont(new Font("Arial", Font.BOLD, 14));
+    panel.add(titolo);
+    panel.add(javax.swing.Box.createRigidArea(new Dimension(0, 10)));
+    double[] valoriUnici = {58, 14.5, 5.6, 3.5, 1.8, 1, 0.5, 0.3};
+    for (double v : valoriUnici) {
+        int conteggio = p.getTotalePerValore(v);//metodo nel panel
+        JLabel label = new JLabel("Valore " + v + "x: " + conteggio + " palline");
+        label.setFont(new Font("Arial", Font.PLAIN, 13));//senza font mi usciva male prima 
+        panel.add(label);
+        panel.add(javax.swing.Box.createRigidArea(new Dimension(0, 5)));
+    }
+    statsFrame.add(panel);
+    statsFrame.setVisible(true);
+}
 }

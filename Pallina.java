@@ -50,6 +50,7 @@ public class Pallina extends Thread
     public double getValMoltiplicatore(){       //serve per trovare quale moltiplicatore ha colpito
         for(int i = 0; i < moltiplicatori.length; i++){     //fa un for che scorre gli indici dell'array di moltiplicatori e controlla quale ha colpito usando isMolGiusto(posizione x)
             if(moltiplicatori[i].isMoltGiusto(x)){
+                moltiplicatori[i].Contatore++;   //aumenta il contatore di quante palline sono passate da questo moltiplicatore
                 return moltiplicatori[i].valore;        //ritorna con il valore del moltiplicatore selezionato  
             }
         }

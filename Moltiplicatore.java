@@ -6,6 +6,7 @@ public class Moltiplicatore {
     int index;
     int posX = 0;
     public double valore;
+    public int Contatore;
 
     Moltiplicatore(int index, int DIM_BASE){
         this.index = index;

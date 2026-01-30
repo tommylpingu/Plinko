@@ -158,6 +158,18 @@ class MyPanel extends JPanel {
         }
     }
 
+    public int getTotalePerValore(double valoreCercato) {
+    int totale = 0;
+    for (Moltiplicatore m : moltiplicatori) 
+    {
+        if (m != null && Math.abs(m.valore - valoreCercato) < 0.01)//if perchè una volta ho avuto problemi con l'arrotondamento dei double
+        {
+            totale += m.Contatore;
+        }  
+    }
+    return totale;
+}
+
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(1400,600);
