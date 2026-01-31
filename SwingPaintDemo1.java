@@ -131,29 +131,73 @@ public class SwingPaintDemo1 {
         return textField;
     }
 
- 
-    private static void mostraStatistiche(MyPanel p) {
-    JFrame statsFrame = new JFrame("Statistiche Moltiplicatori");
-    statsFrame.setSize(300, 450);
-    statsFrame.setLocationRelativeTo(null); // Centra la finestra
-    JPanel panel = new JPanel();
-    panel.setLayout(new javax.swing.BoxLayout(panel, javax.swing.BoxLayout.Y_AXIS));
-    panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
-    JLabel titolo = new JLabel("PALLINE PER MOLTIPLICATORE:");
-    titolo.setFont(new Font("Arial", Font.BOLD, 14));
-    panel.add(titolo);
-    panel.add(javax.swing.Box.createRigidArea(new Dimension(0, 10)));
-    double[] valoriUnici = {58, 14.5, 5.6, 3.5, 1.8, 1, 0.5, 0.3};
-    for (double v : valoriUnici) {
-        int conteggio = p.getTotalePerValore(v);//metodo nel panel
-        JLabel label = new JLabel("Valore " + v + "x: " + conteggio + " palline");
-        label.setFont(new Font("Arial", Font.PLAIN, 13));//senza font mi usciva male prima 
-        panel.add(label);
-        panel.add(javax.swing.Box.createRigidArea(new Dimension(0, 5)));
+ private static void mostraStatistiche(MyPanel p) {
+        JFrame statsFrame = new JFrame("Statistiche");
+        statsFrame.setSize(400, 550); 
+        statsFrame.setLocationRelativeTo(null);
+        JPanel panel = new JPanel();
+        panel.setLayout(new javax.swing.BoxLayout(panel, javax.swing.BoxLayout.Y_AXIS));
+        panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        JLabel titolo = new JLabel("ANALISI RENDIMENTO:");
+        titolo.setFont(new Font("Arial", Font.BOLD, 16));
+        titolo.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        panel.add(titolo);
+        panel.add(javax.swing.Box.createRigidArea(new Dimension(0, 15)));
+        double[] valoriUnici = {58.0, 14.5, 5.6, 3.5, 1.8, 1.0, 0.5, 0.3};
+        int totalePalline = 0;
+        double sommaVincite = 0;
+        for (double v : valoriUnici) {
+            totalePalline += p.getTotalePerValore(v);
+        }
+        for (double v : valoriUnici)
+      {
+            int conteggio = p.getTotalePerValore(v);
+            double percentuale;
+            if (totalePalline > 0) {// Evita divisione per zero
+                percentuale = (conteggio * 100.0) / totalePalline;
+            } else {
+                percentuale = 0;
+            } 
+            sommaVincite += (conteggio * v);
+            // Formattazione della stringa e anche il font è apposito per l'allineamento
+            String riga = String.format("Valore %5.1fx: %d palline (%5.2f%%)", v, conteggio, percentuale);
+            JLabel label = new JLabel(riga);
+            label.setFont(new Font("Monospaced", Font.PLAIN, 13));  
+            panel.add(label);
+            panel.add(javax.swing.Box.createRigidArea(new Dimension(0, 5)));
+        }
+        panel.add(javax.swing.Box.createVerticalGlue());  
+        panel.add(new javax.swing.JSeparator());  //crea la linea
+        panel.add(javax.swing.Box.createRigidArea(new Dimension(0, 10)));
+        // Statistiche finali
+        double rtp;
+        if (totalePalline > 0)
+      {        
+            rtp = (sommaVincite / totalePalline) * 100; //Rtp è il ritorno al giocatore
+        } else {
+            rtp = 0;
+        }  
+        JLabel lblTotale = new JLabel("Totale Lanci: " + totalePalline);
+        lblTotale.setFont(new Font("Arial", Font.ITALIC, 13));
+        panel.add(lblTotale);
+        JLabel lblRTP = new JLabel(String.format("RTP Reale: %.2f%%", rtp));//sempre la formattazione per estetica
+        lblRTP.setFont(new Font("Arial", Font.BOLD, 15));
+        // Colora in base al rendimento
+        if (rtp > 100) 
+        {
+        lblRTP.setForeground(new java.awt.Color(0, 150, 0)); //colore verde se si è in positivo(praticamente impossibile)
+        } else {
+        lblRTP.setForeground(new java.awt.Color(200, 0, 0));// colore rosso se si è in negativo
+        }
+        panel.add(lblRTP);
+        JLabel lblBordo = new JLabel(String.format("Margine Banco: %.2f%%", 100 - rtp));
+        lblBordo.setFont(new Font("Arial", Font.PLAIN, 13));
+        panel.add(lblBordo);
+
+        statsFrame.add(panel);
+        statsFrame.setVisible(true);
     }
-    statsFrame.add(panel);
-    statsFrame.setVisible(true);
-}
+     
  
     private static JCheckBox creaCheckBox(MyPanel p){
         checkBox = new JCheckBox("Auto bet");
