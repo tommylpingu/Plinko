@@ -17,7 +17,7 @@ public class SwingPaintDemo1 {
     private static JComboBox<Integer> comboBox;
     private static JTextField textField;
     private static JCheckBox checkBox;
-    static int nCombo = 10000; 
+    static int nCombo = 250;
 
     public static void main(String[] args) {
          // Aggiungi questo SUBITO all'inizio del main
@@ -159,8 +159,8 @@ public class SwingPaintDemo1 {
                 percentuale = 0;
             } 
             sommaVincite += (conteggio * v);
-            // Formattazione della stringa e anche il font è apposito per l'allineamento
-            String riga = String.format("Valore %5.1fx: %d palline (%5.2f%%)", v, conteggio, percentuale);
+            // Formattazione della stringa e anche il font è apposito per l'allineamento (il format trovato online ma funziona bene)
+            String riga = String.format("Valore %5.1fx: %d palline (%5.3f%%)", v, conteggio, percentuale);
             JLabel label = new JLabel(riga);
             label.setFont(new Font("Monospaced", Font.PLAIN, 13));  
             panel.add(label);

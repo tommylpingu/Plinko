@@ -127,7 +127,7 @@ class MyPanel extends JPanel implements java.awt.event.ActionListener{
         }
         
         // Disegna le palline nel vettore dinamico   
-        for(Pallina pallina : new ArrayList<>(palline)) //for each perchè per ora non ci interessa l'indice poi in caso cambio
+         for(Pallina pallina : new ArrayList<>(palline)) //for each perchè per ora non ci interessa l'indice poi in caso cambio
         {
             if(pallina != null) 
             {
@@ -136,9 +136,15 @@ class MyPanel extends JPanel implements java.awt.event.ActionListener{
                 g.setColor(Color.black);
                 g.drawOval((int)pallina.getX(), (int)pallina.getY(),pallina.getDiametro(), pallina.getDiametro());
             }
-        }    
+        }  
     }  
 
+    public synchronized void rimuoviPallina(Pallina p) // con la sincronizzazione se no si rischia che due palline cadono insieme e una non viene eliminata
+    {
+        palline.remove(p);
+        repaint();
+    }
+     
     public void generaPallina() {
         int larghezza = getWidth();
         int offset = (int) (Math.random() * (DIM_BASE*3));

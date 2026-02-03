@@ -38,12 +38,13 @@ public class Pallina extends Thread
         }
         if(isFinish())
         {   //Quando arriva alla fine calcola la puntata e la stampa (passa la puntataAffiliata perchè prima viene moltiplicata per il modificatore che ha colpito)
-            
+            f.rimuoviPallina(this);
             double moltiplicatore = getValMoltiplicatore();
             puntataAffiliata = puntataAffiliata * moltiplicatore;
             f.stampaPunteggio(puntataAffiliata);
             double saldoDopo = f.punteggio.getSaldoTot();       
             PassaggioDati.passaggio(saldoPrima, saldoDopo, puntataAffiliata/moltiplicatore, moltiplicatore);
+            
             
         }
     }
@@ -104,9 +105,9 @@ public class Pallina extends Thread
                 }       
                 // Determino la direzione del rimbalzo
                 if (dx < 0) {
-                    ultimaDirezioneCollisione = -0.8;
+                    ultimaDirezioneCollisione = -0.92;
                 } else {
-                    ultimaDirezioneCollisione = 0.8;
+                    ultimaDirezioneCollisione = 0.92;
                 }      
                 return true;
             }
